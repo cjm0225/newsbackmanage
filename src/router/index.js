@@ -3,6 +3,11 @@ import VueRouter from 'vue-router'
 
 
 import Home from '../views/Home'
+import ArticleList from '../views/ArticleList'
+import EditArticle from '../views/EditArticle'
+
+
+
 import Login from '../views/Login'
 import Error from '../views/Error'
 
@@ -16,8 +21,24 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/',
+        redirect: "articleList",
+      },
+      {
+        path: 'articleList',
+        name: "ArticleList",
+        component: ArticleList,
+      },
+      {
+        path: 'editArticle',
+        name: "EditArticle",
+        component: EditArticle,
+      },
+
+    ],
   },
   {
     path: "/login",
@@ -36,7 +57,6 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, form, next) => {
-
   if (to.path === "/login") {
     next();
   } else {
