@@ -21,19 +21,26 @@ export default {
     return {
       form: {
         username: "",
-        passwrd: "",
+        password: "",
       },
     };
   },
   methods: {
     onSubmit() {
+      if (this.form.username === "" || this.form.password === "") {
+        this.$message.warning("账号或者密码不能为空");
+        return;
+      }
       this.$axios({
         method: "post",
         url: "/login",
         data: this.form,
       }).then((response) => {
-        console.log(response);
-        this.$message(response.data.message);
+        if (response.data.message === "登录成功") {
+          localStorage.setItem("token", response.data.data.token);
+          this.$message.success(response.data.message);
+          this.$router.push("/home");
+        }
       });
     },
     reset() {
