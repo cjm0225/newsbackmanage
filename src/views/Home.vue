@@ -1,12 +1,8 @@
-<template>
-  <div>
-    <img src="../assets/logo.png" />
-  </div>
-</template>
+<template></template>
 
-<script>
+  <script>
 export default {};
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>

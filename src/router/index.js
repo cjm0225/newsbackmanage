@@ -12,6 +12,10 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    redirect: "/home",
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -29,5 +33,21 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 路由守卫
+router.beforeEach((to, form, next) => {
+
+  if (to.path === "/login") {
+    next();
+  } else {
+    if (localStorage.getItem("token")) {
+      next();
+    } else {
+      alert("请先登录");
+      router.push("/login");
+    }
+  }
+});
+
 
 export default router
